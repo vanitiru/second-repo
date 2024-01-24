@@ -1,0 +1,29 @@
+provider "aws" {
+  access_key = "AKIASYOSACJIYEEPJD65"
+  secret_key = "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"
+  region     = "us-east-1"
+}
+resource "aws_route53_zone" "test" {
+  name = "testroute53"
+}
+
+resource "aws_route53_zone" "dev-ns1" {
+  name = "dev.devops.abbott"
+
+  tags = {
+    Environment = "dev"
+  }
+}
+
+resource "aws_route53_record" "dev-ns1" {
+  zone_id = "Z26GUEA40X38LP"
+  name    = "dev.example.com"
+  type    = "NS"
+  ttl     = "30"
+  records = "v=spf1 iclude:abbott.com~all"
+
+}
+
+
+
+terraform --version
